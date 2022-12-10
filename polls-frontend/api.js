@@ -15,6 +15,7 @@ const useApiHelper = () => {
         //polls
         createPolls: (data, params = {}) => axios.post(`api/v1/polls/create-polls/`, data, params),
         pollsList: (params = {}) => axios.get(`api/v1/polls/polls-list/`, params),
+        deletePolls: (id, params = {}) => axios.delete(`api/v1/polls/delete-polls/${id}`, params),
 
         //vote
         makeVote: (data, params = {}) => axios.post(`api/v1/polls/make-vote/`, data, params),
