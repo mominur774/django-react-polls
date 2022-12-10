@@ -16,10 +16,11 @@ class ChoiceSerializer(serializers.ModelSerializer):
 
     def average_vote(self, choices):
         total_vote = len(Vote.objects.filter(polls=choices.polls))
-        choices_vote = len(Vote.objects.filter(
-            polls=choices.polls, choices=choices.pk))
-        avg_vote = (choices_vote*100) / total_vote
-        return "%.2f" % avg_vote
+        if total_vote:
+            choices_vote = len(Vote.objects.filter(
+                polls=choices.polls, choices=choices.pk))
+            avg_vote = (choices_vote*100) / total_vote
+            return "%.2f" % avg_vote
 
     class Meta:
         model = Choices

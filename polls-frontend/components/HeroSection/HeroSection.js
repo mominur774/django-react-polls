@@ -88,16 +88,17 @@ const HeroSection = () => {
                           {choice.choices}
                         </label>
                       </div>
-                      <div className="progress mb-3 mt-1 w-50" style={{ 'height': '20px' }}>
-                        <div
-                          className="progress-bar progress-bar-striped"
-                          style={{ 'width': `${choice.avg_vote}%` }}
-                          role="progressbar"
-                          aria-valuenow={choice.avg_vote}
-                          aria-valuemin="0"
-                          aria-valuemax="100"
-                        >{choice.avg_vote}%</div>
-                      </div>
+                      {poll.total_vote > 0 &&
+                        <div className="progress mb-3 mt-1 w-50" style={{ 'height': '20px' }}>
+                          <div
+                            className="progress-bar progress-bar-striped"
+                            style={{ 'width': `${choice.avg_vote}%` }}
+                            role="progressbar"
+                            aria-valuenow={choice.avg_vote}
+                            aria-valuemin="0"
+                            aria-valuemax="100"
+                          >{choice.avg_vote}%</div>
+                        </div>}
                     </React.Fragment>))}
                   <div className='my-3'>
                     <div className='d-flex'>
