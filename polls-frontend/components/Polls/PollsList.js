@@ -49,7 +49,7 @@ const PollsList = ({ polls, pollsList }) => {
                 <div className='d-flex'>
                   <p>Total votes: {poll.total_vote}</p>
                   <span className='mx-2 separator'>.</span>
-                  <p>{moment(poll.created_at).fromNow()}</p>
+                  <p>Expire {moment(poll.expire_at).fromNow()}</p>
                 </div>
               </div>
             </div>

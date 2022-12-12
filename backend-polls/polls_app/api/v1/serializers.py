@@ -43,7 +43,8 @@ class PollsCreateSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         polls = Polls.objects.create(
             user=self.context['request'].user,
-            question=validated_data.get('question', '')
+            question=validated_data.get('question', ''),
+            expire_at=validated_data.get('expire_at', ''),
         )
         new_choice1 = Choices.objects.create(
             user=self.context['request'].user,

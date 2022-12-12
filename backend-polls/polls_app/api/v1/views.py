@@ -1,7 +1,7 @@
-from typing import List
 from polls_app.models import Polls, Vote, Choices
 from polls_app.api.v1.serializers import PollsCreateSerializer, VoteSerializer, ChoiceSerializer
 from rest_framework.generics import CreateAPIView, ListAPIView, RetrieveAPIView, UpdateAPIView, DestroyAPIView
+from datetime import datetime
 
 
 class CreatePolls(CreateAPIView):
@@ -11,7 +11,9 @@ class CreatePolls(CreateAPIView):
 
 class PollsList(ListAPIView):
     serializer_class = PollsCreateSerializer
-    queryset = Polls.objects.all()
+
+    def get_queryset(self):
+        return Polls.objects.filter(expire_at__gte=datetime.now())
 
 
 class DeletePolls(DestroyAPIView):
