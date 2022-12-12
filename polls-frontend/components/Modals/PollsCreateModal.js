@@ -55,6 +55,20 @@ const PollsCreateModal = (props) => {
                             </div>
                         </div>
                     </div>
+                    <div className="row">
+                        <div className="col-lg-12">
+                            <div className="form-group mb-3">
+                                <label className='form-label' htmlFor="option1">Expire Date</label>
+                                <input
+                                    placeholder='Enter your question here...'
+                                    type="date"
+                                    name="expire_at"
+                                    className='form-control'
+                                    onChange={props.handleChange}
+                                />
+                            </div>
+                        </div>
+                    </div>
 
                     <button type="submit" className='btn btn-primary my-3'>Create</button>
                 </form>

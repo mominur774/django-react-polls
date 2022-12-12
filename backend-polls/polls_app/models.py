@@ -13,6 +13,7 @@ class Polls(models.Model):
         blank=True
     )
     question = models.CharField(max_length=255)
+    expire_at = models.DateField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
