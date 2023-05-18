@@ -1,4 +1,4 @@
-Django and React polls app.
+Django and React polls app with Social authentication.
 
 # Getting Started
 
@@ -11,6 +11,8 @@ Django and React polls app.
 ```bash
 DEBUG=
 SECRET_KEY=
+GOOGLE_CLIENT_SECRET=
+GOOGLE_CLIENT_ID=
 ```
 > Install dependency
 ```bash
@@ -34,6 +36,7 @@ python manage.py runserver
 
 ```bash
 NEXT_PUBLIC_APP_API_URL=http://127.0.0.1:8000/
+NEXT_PUBLIC_GOOGLE_CLIENT_ID=
 ```
 > Install dependency
 ```bash
