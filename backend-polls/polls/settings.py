@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+    'drf_yasg',
 
     'rest_framework.authtoken',
     'rest_auth.registration',
