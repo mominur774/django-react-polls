@@ -7,14 +7,24 @@ import ConfirmDelete from '../Modals/ConfirmDeleteModal';
 
 let moment = require('moment');
 
-const PollsList = ({ polls, pollsList }) => {
+const PollsList = (props) => {
   const [show, setShow] = useState();
   const [deleteId, setDeleteId] = useState(null);
 
   const gContext = useContext(GlobalContext);
+  const api = useApiHelper();
 
   const handleModalClose = () => {
     setShow(false)
+  }
+
+  const handleEdit = (id) => {
+    props.handleModalShow()
+    api.pollsDetails(id).then(res => {
+      props.setFormData(res)
+    }).catch(error => {
+      console.log(error)
+    })
   }
 
   const handleModalShow = (id) => {
@@ -24,17 +34,20 @@ const PollsList = ({ polls, pollsList }) => {
 
   return (<>
     <div className="polls">
-      {polls.length ? (
+      {props?.polls?.length ? (
         <>
-          {polls.map(poll => (
+          {props?.polls?.map(poll => (
             <div className='mb-3' key={poll.id}>
               <div className='d-flex justify-content-between w-75'>
                 <p><b>{poll.question}</b></p>
                 {gContext?.user?.pk === poll.user &&
                   <div>
-                    {/* <span className='me-2'>
-                      <FaRegEdit style={{ 'color': 'blue', 'cursor': 'pointer' }} />
-                    </span> */}
+                    <span className='me-2'>
+                      <FaRegEdit
+                        style={{ 'color': 'blue', 'cursor': 'pointer' }}
+                        onClick={() => handleEdit(poll.id)}
+                      />
+                    </span>
                     <span className=''>
                       <FaTrashAlt
                         style={{ 'color': 'red', 'cursor': 'pointer' }}
@@ -44,7 +57,7 @@ const PollsList = ({ polls, pollsList }) => {
                   </div>
                 }
               </div>
-              <RadionInput poll={poll} pollsList={pollsList} />
+              <RadionInput poll={poll} pollsList={props?.pollsList} />
               <div className='my-3'>
                 <div className='d-flex'>
                   <p>Total votes: {poll.total_vote}</p>
@@ -63,7 +76,7 @@ const PollsList = ({ polls, pollsList }) => {
       show={show}
       handleClose={handleModalClose}
       id={deleteId}
-      pollsList={pollsList}
+      pollsList={props?.pollsList}
       setShow={setShow}
     />
   </>)

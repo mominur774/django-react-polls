@@ -37,9 +37,7 @@ const Header = () => {
             </li>
             {gContext.isLoggedIn ? (
               <li className="nav-item">
-                <Link href="#">
-                  <a onClick={handleLogout} className="nav-link">Logout</a>
-                </Link>
+                <div onClick={handleLogout} className="nav-link">Logout</div>
               </li>
             ) : (<>
               <li className="nav-item">
