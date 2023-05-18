@@ -20,7 +20,7 @@ const RadionInput = ({ poll, pollsList }) => {
               className="form-check-input"
               type="radio"
               name={`choices${poll.id}`}
-              id={choice.id}
+              id={choice.choices}
               onChange={() => makeVote(poll.id, choice.id)}
               checked={choice.is_voted && true}
             />

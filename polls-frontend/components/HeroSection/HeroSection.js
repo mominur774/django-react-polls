@@ -12,7 +12,8 @@ const HeroSection = () => {
   const api = useApiHelper();
 
   const handleModalClose = () => {
-    setShow(false)
+    setShow(false);
+    setFormData({});
   }
 
   const handleModalShow = () => {
@@ -34,14 +35,29 @@ const HeroSection = () => {
     })
   }
 
-  const handleSubmit = e => {
+  const handleSubmit = (e, id) => {
     e.preventDefault();
-    api.createPolls(formData).then(res => {
-      pollsList();
-      handleModalClose();
-    }).catch(error => {
-      console.log(error)
-    })
+    if (!id) {
+      api.createPolls(formData).then(res => {
+        pollsList();
+        handleModalClose();
+      }).catch(error => {
+        console.log(error)
+      })
+    } else {
+      if (!formData.choices1) {
+        formData['choices1'] = formData?.choices[0]?.choices
+      }
+      if (!formData.choices2) {
+        formData['choices2'] = formData?.choices[1]?.choices
+      }
+      api.updatePolls(id, formData).then(res => {
+        pollsList();
+        handleModalClose();
+      }).catch(error => {
+        console.log(error)
+      })
+    }
   }
 
 
@@ -59,7 +75,13 @@ const HeroSection = () => {
           Create a polls
         </button>
         <hr />
-        <PollsList polls={polls} pollsList={pollsList} />
+        <PollsList
+          polls={polls}
+          pollsList={pollsList}
+          formData={formData}
+          setFormData={setFormData}
+          handleModalShow={handleModalShow}
+        />
       </div>
     </div>
     <PollsCreateModal

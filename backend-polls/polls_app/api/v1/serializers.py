@@ -26,15 +26,19 @@ class ChoiceSerializer(serializers.ModelSerializer):
         model = Choices
         fields = '__all__'
 
-
-class PollsCreateSerializer(serializers.ModelSerializer):
+class PollSerializer(serializers.ModelSerializer):
     choices = ChoiceSerializer(read_only=True, many=True)
-    choices1 = serializers.CharField(max_length=255, write_only=True)
-    choices2 = serializers.CharField(max_length=255, write_only=True)
     total_vote = serializers.SerializerMethodField('total_vote_per_poll')
 
     def total_vote_per_poll(self, polls):
         return len(Vote.objects.filter(polls=polls.pk))
+
+    class Meta:
+        model = Polls
+        fields = '__all__'
+class PollsCreateSerializer(serializers.ModelSerializer):
+    choices1 = serializers.CharField(max_length=255, write_only=True)
+    choices2 = serializers.CharField(max_length=255, write_only=True)
 
     class Meta:
         model = Polls
@@ -46,17 +50,34 @@ class PollsCreateSerializer(serializers.ModelSerializer):
             question=validated_data.get('question', ''),
             expire_at=validated_data.get('expire_at', ''),
         )
-        new_choice1 = Choices.objects.create(
+        Choices.objects.create(
             user=self.context['request'].user,
             polls=polls,
             choices=validated_data.get('choices1', '')
         )
-        new_choice2 = Choices.objects.create(
+        Choices.objects.create(
             user=self.context['request'].user,
             polls=polls,
             choices=validated_data.get('choices2', '')
         )
         return polls
+
+    def update(self, instance, validated_data):
+        instance.question = validated_data.get('question')
+        instance.expire_at = validated_data.get('expire_at')
+        instance.save()
+
+        if validated_data.get('choices1'):
+            choices = Choices.objects.filter(user=self.context['request'].user, polls=instance)[0]
+            choices.choices = validated_data.get('choices1')
+            choices.save()
+        
+        if validated_data.get('choices2'):
+            choices = Choices.objects.filter(user=self.context['request'].user, polls=instance)[1]
+            choices.choices = validated_data.get('choices2')
+            choices.save()
+        
+        return instance
 
 
 class VoteSerializer(serializers.ModelSerializer):
