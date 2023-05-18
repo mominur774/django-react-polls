@@ -7,13 +7,18 @@ from django.conf.urls.static import static
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 
+from django.conf.urls import url
+from users.api import views
+
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('api/v1/polls/', include('polls_app.api.v1.urls')),
-    path('accounts/', include('allauth.urls')),
-    path('rest-auth/', include('rest_auth.urls')),
-    path('rest-auth/registration/', include('rest_auth.registration.urls')),
+   path('admin/', admin.site.urls),
+   path('api/v1/polls/', include('polls_app.api.v1.urls')),
+   path('accounts/', include('allauth.urls')),
+   path('rest-auth/', include('rest_auth.urls')),
+   path('rest-auth/registration/', include('rest_auth.registration.urls')),
+
+   url(r'rest-auth/google/', views.GoogleLogin.as_view(), name='google-login')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
