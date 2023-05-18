@@ -27,6 +27,7 @@ python manage.py createsuperuser
 ```bash
 python manage.py runserver
 ```
+You will get all the api endpoints by hitting this url : http://127.0.0.1:8000/api-docs/
 <br />
 
 ## Project setup and run (Frontend)
