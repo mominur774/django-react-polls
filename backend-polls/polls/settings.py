@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
     'drf_yasg',
 
     'rest_framework.authtoken',
@@ -245,3 +246,17 @@ STATICFILES_DIRS = [
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+GOOGLE_CLIENT_ID = env('GOOGLE_CLIENT_ID')
+GOOGLE_CLIENT_SECRET = env('GOOGLE_CLIENT_SECRET')
+GOOGLE_AUTH = True if GOOGLE_CLIENT_ID and GOOGLE_CLIENT_SECRET else None
+
+SOCIALACCOUNT_PROVIDERS = {}
+if GOOGLE_AUTH:
+    SOCIALACCOUNT_PROVIDERS["google"] = {
+        "APP": {
+            "client_id": GOOGLE_CLIENT_ID,
+            "secret": GOOGLE_CLIENT_SECRET,
+            "key": ""
+        },
+    }

@@ -15,9 +15,15 @@ a {
   box-sizing: border-box;
 }
 
-.separator {
+.separator-dot {
   margin-top: -3px;
   font-weight: bold;
+}
+
+.separator {
+  height: 1px;
+  width: 100%;
+  background: #bcbcbc;
 }
 
 @media (prefers-color-scheme: dark) {

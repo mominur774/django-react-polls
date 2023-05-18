@@ -48,7 +48,7 @@ const PollsList = ({ polls, pollsList }) => {
               <div className='my-3'>
                 <div className='d-flex'>
                   <p>Total votes: {poll.total_vote}</p>
-                  <span className='mx-2 separator'>.</span>
+                  <span className='mx-2 separator-dot'>.</span>
                   <p>Expire {moment(poll.expire_at).fromNow()}</p>
                 </div>
               </div>

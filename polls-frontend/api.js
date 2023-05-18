@@ -19,6 +19,9 @@ const useApiHelper = () => {
 
         //vote
         makeVote: (data, params = {}) => axios.post(`api/v1/polls/make-vote/`, data, params),
+
+        //social login
+        googleLogin: (data, params = {}) => axios.post(`rest-auth/google/`, data, params),
     }
     return api;
 }
